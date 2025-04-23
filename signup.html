@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up - Library System</title>
+  <link rel="stylesheet" href="sinup.css">
+</head>
+<body>
+    <a href="home.html" class="home-link">Home</a>
+  <div class="container">
+    <div class="signup-form">
+      <h2>Sign Up</h2>
+      <form id="registerForm">
+        <label for="fname">First Name</label>
+        <input type="text" id="fname" placeholder="Cris" required>
+
+        <label for="lname">Last Name</label>
+        <input type="text" id="lname" placeholder="Example" required>
+
+        <label for="uname">Username</label>
+        <input type="text" id="uname" placeholder="Example" required>
+
+        <label for="password">Password</label>
+        <div class="password-field">
+          <input type="password" id="password" required>
+          <span onclick="toggleVisibility('password')">👁️</span>
+        </div>
+
+        <label for="confirm">Confirm Password</label>
+        <div class="password-field">
+          <input type="password" id="confirm" required>
+          <span onclick="toggleVisibility('confirm')">👁️</span>
+        </div>
+
+        <button type="submit" class="btn">Sign up</button>
+        <p class="login-link">Already have an account? <a href="index.html">Sign in now!</a></p>
+      </form>
+    </div>
+
+    <div class="logo-side">
+      <img src="logo.png" alt="School Logo">
+      <h3>Library Management System</h3>
+    </div>
+  </div>
+
+  <script src="sinup.js"></script>
+</body>
+</html>

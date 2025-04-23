@@ -1,0 +1,421 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LBR-SYSTEM</title>
+    <link rel="stylesheet" href="main.css" />
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo-container">
+            <div class="logo">
+                <img src="logo.png" alt="LBR Logo">
+            </div>
+            <div class="logo-text">LBR-SYSTEM</div>
+        </div>
+        
+        <a href="#" class="nav-item" id="dashboardLink">
+            <div class="nav-icon">🏠</div>
+            DASHBOARD
+        </a>
+        
+        <a href="#" class="nav-item" id="borrowingLink">
+            <div class="nav-icon">📋</div>
+            BORROWING
+        </a>
+        
+        <a href="#" class="nav-item" id="usersLink">
+            <div class="nav-icon">👥</div>
+            USERS
+        </a>
+        
+        <a href="#" class="nav-item" id="booksRequestedLink">
+            <div class="nav-icon">📚</div>
+            BOOKS REQUESTED
+        </a>
+        
+        <a href="#" class="nav-item" id="settingsLink">
+            <div class="nav-icon">⚙️</div>
+            SETTINGS
+        </a>
+        
+        <a href="#" class="nav-item" id="logoutLink">
+            <div class="nav-icon">↪️</div>
+            LOG OUT
+        </a>
+        
+        <div class="admin-profile">
+            <div class="profile-pic">
+                <img src="/api/placeholder/40/40" alt="Admin Avatar">
+            </div>
+            <div id="adminRole">Admin</div>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <div class="header">
+            <button class="back-btn">←</button>
+            
+            <div class="search-container">
+                <div class="search-icon">🔍</div>
+                <input type="text" class="search-input" placeholder="Search & Browse Books">
+            </div>
+            
+            <div class="notification-icon">🔔</div>
+            
+            <div class="category-dropdown">
+                <button class="category-btn">Category ≡</button>
+                <div class="dropdown-content">
+                    <a href="#">Educational</a>
+                    <a href="#">Entertainment</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Dashboard Page -->
+        <div class="dashboard" id="dashboard">
+            <div class="dashboard-header">
+                <h2 class="dashboard-title">User Dashboard</h2>
+                <button class="add-book-btn">+Add Book</button>
+            </div>
+            
+            <div class="books-grid">
+                <!-- Book 1 -->
+                <div class="book-card">
+                    <div class="book-cover" data-book-code="MATH001">
+                        <img src="book1.png" alt="Book 1" data-book-src="book1.png">
+                    </div>
+                    <p class="book-title">Mathematics 1</p>
+                </div>
+                
+                <!-- Book 2 -->
+                <div class="book-card">
+                    <div class="book-cover" data-book-code="SCI002">
+                        <img src="book2.png" alt="Book 2" data-book-src="book2.png">
+                    </div>
+                    <p class="book-title">Science and Technology</p>
+                </div>
+                
+                <!-- Book 3 -->
+                <div class="book-card">
+                    <div class="book-cover" data-book-code="ENG003">
+                        <img src="book3.png" alt="Book 3" data-book-src="book3.png">
+                    </div>
+                    <p class="book-title">English for Everyone</p>
+                </div>
+                
+                <!-- Book 4 -->
+                <div class="book-card">
+                    <div class="book-cover" data-book-code="FIL004">
+                        <img src="book4.png" alt="Book 4" data-book-src="book4.png">
+                    </div>
+                    <p class="book-title">Filipino: Wika at Kultura</p>
+                </div>
+                
+                <!-- Book 5 -->
+                <div class="book-card">
+                    <div class="book-cover" data-book-code="SOC005">
+                        <img src="book5.png" alt="Book 5" data-book-src="book5.png">
+                    </div>
+                    <p class="book-title">Social Studies</p>
+                </div>
+                
+                <!-- Book 6 -->
+                <div class="book-card">
+                    <div class="book-cover" data-book-code="COMP006">
+                        <img src="book6.png" alt="Book 6" data-book-src="book6.png">
+                    </div>
+                    <p class="book-title">Computer Education</p>
+                </div>
+                
+                <!-- Book 7 -->
+                <div class="book-card">
+                    <div class="book-cover" data-book-code="COMP007">
+                        <img src="book7.png" alt="Book 7" data-book-src="book7.png">
+                    </div>
+                    <p class="book-title">Computer Education</p>
+                </div>
+                
+                <!-- Book 8 -->
+                <div class="book-card">
+                    <div class="book-cover" data-book-code="COMP008">
+                        <img src="book8.png" alt="Book 8" data-book-src="book8.png">
+                    </div>
+                    <p class="book-title">Computer Education</p>
+                </div>
+                
+                <!-- Book 9 -->
+                <div class="book-card">
+                    <div class="book-cover" data-book-code="COMP009">
+                        <img src="book9.png" alt="Book 9" data-book-src="book9.png">
+                    </div>
+                    <p class="book-title">Computer Education</p>
+                </div>
+                
+                <!-- Book 10 -->
+                <div class="book-card">
+                    <div class="book-cover" data-book-code="COMP010">
+                        <img src="book10.png" alt="Book 10" data-book-src="book10.png">
+                    </div>
+                    <p class="book-title">Computer Education</p>
+                </div>
+                
+                <!-- Book 11 -->
+                <div class="book-card">
+                    <div class="book-cover" data-book-code="COMP011">
+                        <img src="book11.png" alt="Book 11" data-book-src="book11.png">
+                    </div>
+                    <p class="book-title">Computer Education</p>
+                </div>
+                
+                <!-- Book 12 -->
+                <div class="book-card">
+                    <div class="book-cover" data-book-code="COMP012">
+                        <img src="book12.png" alt="Book 12" data-book-src="book12.png">
+                    </div>
+                    <p class="book-title">Computer Education</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Borrowing Page -->
+        <div class="borrowing-page" id="borrowingPage">
+            <div class="dashboard-header">
+                <h2 class="dashboard-title">Borrowing</h2>
+                <div class="user-profile">
+                    <div class="user-avatar"></div>
+                    <span>User</span>
+                </div>
+            </div>
+            
+            <div class="borrowing-grid">
+                <div class="borrowing-section">
+                    <div class="section-box">
+                        <h3 class="section-title">Book Checkout</h3>
+                        <div class="section-content">
+                            <div class="book-icon" id="checkoutBookIcon">
+                                <img src="/api/placeholder/70/120" alt="Book Icon" id="checkoutBookImage">
+                            </div>
+                            <div class="calendar-icon">
+                               
+                            </div>
+                            <div class="date-display">Due Date</div>
+                            <input type="text" class="input-field" id="bookCodeInput" placeholder="Book code" pattern="[A-Za-z0-9-]+" required>
+                            <input type="text" class="input-field" placeholder="Student ID" pattern="[0-9]+" required>
+                            <label class="input-label">Checkout Date:</label>
+                            <input type="date" class="time-input" id="checkoutTime" required>
+                            <button class="action-btn">Borrow</button>
+                        </div>
+                    </div>
+                    
+                    <div class="section-box">
+                        <h3 class="section-title">Return</h3>
+                        <div class="section-content">
+                            <div class="book-icon">
+                                <img src="/api/placeholder/70/120" alt="Book Icon"> 
+                            </div>
+                            <input type="text" class="input-field" placeholder="Book code" pattern="[A-Za-z0-9-]+" required>
+                            <input type="text" class="input-field" placeholder="Student ID" pattern="[0-9]+" required>
+                            <label class="input-label">Return Time:</label>
+                            <input type="time" class="time-input" id="returnTime" required>
+                            <button class="action-btn">Return</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="borrowing-section">
+                    <div class="section-box">
+                        <h3 class="section-title">Overdue Fines</h3>
+                        <div class="section-content">
+                            <div class="penalty-icon">
+                                <img src="overdue fines.png" alt="Book with Calendar">
+                            </div>
+                            <div class="info-text">penalties apply if books are returned late</div>
+                        </div>
+                    </div>
+                    
+                    <div class="section-box">
+                        <h3 class="section-title">Lost/Damaged Books</h3>
+                        <div class="section-content">
+                            <div class="book-icon">
+                                <img src="/api/placeholder/70/120" alt="Book Icon">
+                            </div>
+                            <div class="info-icon">
+                                <img src="lost.png" alt="Question Mark">
+                            </div>
+                            <div class="info-text">Users must report and compensate for lost or damaged items</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Users Page -->
+        <div class="users-page" id="usersPage" style="display: none;">
+            <div class="dashboard-header">
+                <h2 class="dashboard-title">Users</h2>
+            </div>
+            
+            <div class="table-container">
+                <table class="user-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userTableBody">
+                        <tr>
+                            <td>1</td>
+                            <td>johndoe</td>
+                            <td>john@example.com</td>
+                            <td>Admin</td>
+                            <td><span class="status active">Active</span></td>
+                            <td><button class="action-btn">View</button></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>janedoe</td>
+                            <td>jane@example.com</td>
+                            <td>User</td>
+                            <td><span class="status inactive">Inactive</span></td>
+                            <td><button class="action-btn">View</button></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>mikebrown</td>
+                            <td>mike@example.com</td>
+                            <td>User</td>
+                            <td><span class="status active">Active</span></td>
+                            <td><button class="action-btn">View</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Books Requested Page (new) -->
+        <div class="books-requested-page" id="booksRequestedPage">
+            <div class="books-requested-header">
+                <h2 class="books-requested-title">Books Requested</h2>
+            </div>
+            
+            <div class="books-table-container">
+                <table class="books-table">
+                    <thead>
+                        <tr>
+                            <th>Book code</th>
+                            <th>Book name</th>
+                            <th>Status</th>
+                            <th>Quantity</th>
+                            <th>Department</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>123456789</td>
+                            <td>Data Structure</td>
+                            <td>Available</td>
+                            <td>5</td>
+                            <td>HUMMS</td>
+                        </tr>
+                        <tr>
+                            <td>123456789</td>
+                            <td>Data Structure</td>
+                            <td>Available</td>
+                            <td>5</td>
+                            <td>HUMMS</td>
+                        </tr>
+                        <tr>
+                            <td>123456789</td>
+                            <td>Data Structure</td>
+                            <td>Available</td>
+                            <td>5</td>
+                            <td>HUMMS</td>
+                        </tr>
+                        <tr>
+                            <td>987654321</td>
+                            <td>Advanced Programming</td>
+                            <td>On Loan</td>
+                            <td>2</td>
+                            <td>IT</td>
+                        </tr>
+                        <tr>
+                            <td>456789123</td>
+                            <td>Database Management</td>
+                            <td>Available</td>
+                            <td>3</td>
+                            <td>IT</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Settings Page (new) -->
+        <div class="settings-page" id="settingsPage" style="display: none;">
+            <div class="settings-header">
+                <h2 class="settings-title">Settings</h2>
+            </div>
+            
+            <div class="profile-section">
+                <h3 class="section-title">Profile</h3>
+                <div class="profile-content">
+                    <div class="avatar-container">
+                        <div class="profile-avatar">
+                            <img src="admin-avatar.png" alt="Profile Avatar">
+                        </div>
+                        <div class="photo-upload-btn">+</div>
+                    </div>
+                    
+                    <div class="profile-details">
+                        <div class="profile-field">
+                            <label class="profile-label">First Name</label>
+                            <input type="text" class="profile-input" placeholder="First Name">
+                        </div>
+                        
+                        <div class="profile-field">
+                            <label class="profile-label">Last Name</label>
+                            <input type="text" class="profile-input" placeholder="Last Name">
+                        </div>
+                        
+                        <div class="profile-field">
+                            <label class="profile-label">Email</label>
+                            <input type="email" class="profile-input" placeholder="Email">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="security-section">
+                <h3 class="section-title">Security</h3>
+                <div class="security-content">
+                    <div class="password-question">
+                        Do you want to change your password?
+                    </div>
+                    <button class="proceed-btn">proceed</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Logout Modal -->
+        <div class="logout-modal" id="logoutModal">
+            <div class="logout-content">
+                <h2 class="logout-title">Log Out</h2>
+                <p class="logout-message">Are you sure you want to log out of your account?</p>
+                <div class="logout-buttons">
+                    <button class="cancel-btn" id="cancelLogout">Cancel</button>
+                    <button class="confirm-logout-btn" id="confirmLogout">Log Out</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="main.js"></script>
+</body>
+</html>

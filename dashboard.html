@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LBR-SYSTEM</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            height: 100vh;
+        }
+        
+        .sidebar {
+            width: 280px;
+            background-color: #222;
+            color: white;
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #f1f1f1;
+            margin-right: 10px;
+        }
+        .logo img{
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #f1f1f1;
+            margin-right: 10px;
+        }
+        
+        .logo-text {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #ddd;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background-color: #333;
+        }
+        
+        .nav-icon {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .admin-profile {
+            margin-top: auto;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            border-top: 1px solid #333;
+        }
+        
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #901C1C;
+            margin-right: 10px;
+            overflow: hidden;
+        }
+        
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #f9f9f9;
+        }
+        
+        .header {
+            background-color: #901C1C;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+        }
+        
+        .back-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .search-container {
+            flex: 1;
+            margin: 0 20px;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            border-radius: 20px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+        }
+        
+        .notification-icon {
+            font-size: 24px;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+        
+        /* Books Requested Styles */
+        .books-requested-page {
+            padding: 20px;
+            flex: 1;
+            overflow-y: auto;
+        }
+        
+        .books-requested-header {
+            margin-bottom: 20px;
+        }
+        
+        .books-requested-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .books-table-container {
+            background-color: #901C1C;
+            border-radius: 5px;
+            padding: 20px;
+        }
+        
+        .books-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .books-table th, .books-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .books-table th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .books-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        /* Settings Page Styles */
+        .settings-page {
+            padding: 20px;
+            flex: 1;
+            overflow-y: auto;
+        }
+        
+        .settings-header {
+            margin-bottom: 20px;
+        }
+        
+        .settings-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .profile-section {
+            background-color: #901C1C;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .profile-content {
+            background-color: white;
+            border-radius: 5px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #eee;
+            margin-right: 30px;
+            overflow: hidden;
+        }
+        
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-details {
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .profile-field {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .profile-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+        
+        .profile-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .photo-upload-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            color: white;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .security-section {
+            background-color: #901C1C;
+            border-radius: 5px;
+            padding: 20px;
+        }
+        
+        .security-content {
+            background-color: white;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .password-question {
+            border: 2px solid #000;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        
+        .proceed-btn {
+            padding: 10px 20px;
+            background-color: #000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        /* Logout Modal Styles */
+        .logout-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logout-content {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            width: 400px;
+            text-align: center;
+        }
+        
+        .logout-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .logout-message {
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .logout-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .cancel-btn, .confirm-logout-btn {
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .cancel-btn {
+            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+            color: #333;
+        }
+        
+        .confirm-logout-btn {
+            background-color: #901C1C;
+            border: none;
+            color: white;
+        }
+        
+        .avatar-container {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo-container">
+            <div class="logo">
+                <img src="logo.png" alt="LBR Logo">
+            </div>
+            <div class="logo-text">LBR-SYSTEM</div>
+        </div>
+        
+        <a href="#" class="nav-item" id="dashboardLink">
+            <div class="nav-icon">🏠</div>
+            DASHBOARD
+        </a>
+        
+        <a href="#" class="nav-item" id="borrowingLink">
+            <div class="nav-icon">📋</div>
+            BORROWING
+        </a>
+        
+        <a href="#" class="nav-item" id="usersLink">
+            <div class="nav-icon">👥</div>
+            USERS
+        </a>
+        
+        <a href="#" class="nav-item" id="booksRequestedLink">
+            <div class="nav-icon">📚</div>
+            BOOKS REQUESTED
+        </a>
+        
+        <a href="#" class="nav-item" id="settingsLink">
+            <div class="nav-icon">⚙️</div>
+            SETTINGS
+        </a>
+        
+        <a href="#" class="nav-item" id="logoutLink">
+            <div class="nav-icon">↪️</div>
+            LOG OUT
+        </a>
+        
+        <div class="admin-profile">
+            <div class="profile-pic">
+                <img src="admin-avatar.png" alt="Admin Avatar">
+            </div>
+            <div id="adminRole">Admin</div>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <div class="header">
+            <button class="back-btn">←</button>
+            
+            <div class="search-container">
+                <div class="search-icon">🔍</div>
+                <input type="text" class="search-input" placeholder="Search & Browse Books">
+            </div>
+            
+            <div class="notification-icon">🔔</div>
+        </div>
+        
+        <!-- Dashboard Page (reference only - already in your code) -->
+        <div class="dashboard" id="dashboard" style="display: none;">
+            <!-- Dashboard content -->
+        </div>
+        
+        <!-- Borrowing Page (reference only - already in your code) -->
+        <div class="borrowing-page" id="borrowingPage" style="display: none;">
+            <!-- Borrowing content -->
+        </div>
+        
+        <!-- Users Page (reference only - already in your code) -->
+        <div id="usersPage" style="display: none;">
+            <!-- Users content -->
+        </div>
+        
+        <!-- Books Requested Page (new) -->
+        <div class="books-requested-page" id="booksRequestedPage">
+            <div class="books-requested-header">
+                <h2 class="books-requested-title">Books Requested</h2>
+            </div>
+            
+            <div class="books-table-container">
+                <table class="books-table">
+                    <thead>
+                        <tr>
+                            <th>Book code</th>
+                            <th>Book name</th>
+                            <th>Status</th>
+                            <th>Quantity</th>
+                            <th>Department</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>123456789</td>
+                            <td>Data Structure</td>
+                            <td>Available</td>
+                            <td>5</td>
+                            <td>HUMMS</td>
+                        </tr>
+                        <tr>
+                            <td>123456789</td>
+                            <td>Data Structure</td>
+                            <td>Available</td>
+                            <td>5</td>
+                            <td>HUMMS</td>
+                        </tr>
+                        <tr>
+                            <td>123456789</td>
+                            <td>Data Structure</td>
+                            <td>Available</td>
+                            <td>5</td>
+                            <td>HUMMS</td>
+                        </tr>
+                        <tr>
+                            <td>987654321</td>
+                            <td>Advanced Programming</td>
+                            <td>On Loan</td>
+                            <td>2</td>
+                            <td>IT</td>
+                        </tr>
+                        <tr>
+                            <td>456789123</td>
+                            <td>Database Management</td>
+                            <td>Available</td>
+                            <td>3</td>
+                            <td>IT</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Settings Page (new) -->
+        <div class="settings-page" id="settingsPage" style="display: none;">
+            <div class="settings-header">
+                <h2 class="settings-title">Settings</h2>
+            </div>
+            
+            <div class="profile-section">
+                <h3 class="section-title">Profile</h3>
+                <div class="profile-content">
+                    <div class="avatar-container">
+                        <div class="profile-avatar">
+                            <img src="admin-avatar.png" alt="Profile Avatar">
+                        </div>
+                        <div class="photo-upload-btn">+</div>
+                    </div>
+                    
+                    <div class="profile-details">
+                        <div class="profile-field">
+                            <label class="profile-label">First Name</label>
+                            <input type="text" class="profile-input" placeholder="First Name">
+                        </div>
+                        
+                        <div class="profile-field">
+                            <label class="profile-label">Last Name</label>
+                            <input type="text" class="profile-input" placeholder="Last Name">
+                        </div>
+                        
+                        <div class="profile-field">
+                            <label class="profile-label">Email</label>
+                            <input type="email" class="profile-input" placeholder="Email">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="security-section">
+                <h3 class="section-title">Security</h3>
+                <div class="security-content">
+                    <div class="password-question">
+                        Do you want to change your password?
+                    </div>
+                    <button class="proceed-btn">proceed</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Logout Modal -->
+        <div class="logout-modal" id="logoutModal">
+            <div class="logout-content">
+                <h2 class="logout-title">Log Out</h2>
+                <p class="logout-message">Are you sure you want to log out of your account?</p>
+                <div class="logout-buttons">
+                    <button class="cancel-btn" id="cancelLogout">Cancel</button>
+                    <button class="confirm-logout-btn" id="confirmLogout">Log Out</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all page elements
+            const dashboard = document.getElementById('dashboard');
+            const borrowingPage = document.getElementById('borrowingPage');
+            const usersPage = document.getElementById('usersPage');
+            const booksRequestedPage = document.getElementById('booksRequestedPage');
+            const settingsPage = document.getElementById('settingsPage');
+            
+            // Get all navigation links
+            const dashboardLink = document.getElementById('dashboardLink');
+            const borrowingLink = document.getElementById('borrowingLink');
+            const usersLink = document.getElementById('usersLink');
+            const booksRequestedLink = document.getElementById('booksRequestedLink');
+            const settingsLink = document.getElementById('settingsLink');
+            const logoutLink = document.getElementById('logoutLink');
+            
+            // Get logout modal elements
+            const logoutModal = document.getElementById('logoutModal');
+            const cancelLogout = document.getElementById('cancelLogout');
+            const confirmLogout = document.getElementById('confirmLogout');
+            
+            // Function to hide all pages
+            function hideAllPages() {
+                dashboard.style.display = 'none';
+                borrowingPage.style.display = 'none';
+                usersPage.style.display = 'none';
+                booksRequestedPage.style.display = 'none';
+                settingsPage.style.display = 'none';
+            }
+            
+            // Function to update active link
+            function updateActiveLink(activeLink) {
+                // Remove active class from all nav items
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                // Add active class to clicked link
+                activeLink.classList.add('active');
+            }
+            
+            // Dashboard navigation
+            dashboardLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                hideAllPages();
+                dashboard.style.display = 'block';
+                updateActiveLink(dashboardLink);
+            });
+            
+            // Borrowing navigation
+            borrowingLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                hideAllPages();
+                borrowingPage.style.display = 'block';
+                updateActiveLink(borrowingLink);
+            });
+            
+            // Users navigation
+            usersLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                hideAllPages();
+                usersPage.style.display = 'block';
+                updateActiveLink(usersLink);
+            });
+            
+            // Books Requested navigation
+            booksRequestedLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                hideAllPages();
+                booksRequestedPage.style.display = 'block';
+                updateActiveLink(booksRequestedLink);
+            });
+            
+            // Settings navigation
+            settingsLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                hideAllPages();
+                settingsPage.style.display = 'block';
+                updateActiveLink(settingsLink);
+            });
+            
+            // Logout button click
+            logoutLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                logoutModal.style.display = 'flex';
+            });
+            
+            // Cancel logout
+            cancelLogout.addEventListener('click', function() {
+                logoutModal.style.display = 'none';
+            });
+            
+            // Confirm logout
+            confirmLogout.addEventListener('click', function() {
+                // Here you would typically redirect to login page
+                alert('Logging out...');
+                window.location.href = 'login.html'; // Redirect to login page
+            });
+            
+            // Close modal if clicked outside of content
+            logoutModal.addEventListener('click', function(e) {
+                if (e.target === logoutModal) {
+                    logoutModal.style.display = 'none';
+                }
+            });
+            
+            // Set books requested as active by default
+            booksRequestedLink.classList.add('active');
+        });
+    </script>
+</body>
+</html>

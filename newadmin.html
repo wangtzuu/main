@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LBR-SYSTEM</title>
+    
+    <style>
+        :root {
+            --primary-color: #8B0000;
+            --secondary-color: #6A0000;
+            --bg-dark: #1A0000;
+            --text-light: #FFFFFF;
+            --text-dark: #000000;
+            --sidebar-width: 250px;
+            --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+        }
+        
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .logo {
+            width: 40px;
+            height: 40px;
+            background-color: var(--text-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+        
+        .logo img {
+            width: 30px;
+            height: 30px;
+        }
+        
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-icon {
+            margin-right: 15px;
+            font-size: 1.2rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .admin-profile {
+            margin-top: auto;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            overflow: hidden;
+        }
+        
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        #adminRole {
+            font-weight: bold;
+        }
+        
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 20px;
+            width: calc(100% - var(--sidebar-width));
+        }
+        
+        .header {
+            background-color: var(--primary-color);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--text-light);
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            font-size: 1.5rem;
+        }
+        
+        .notification-icon {
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 20px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            min-height: 150px;
+        }
+        
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+        }
+        
+        .chart-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+        }
+        
+        .chart-title {
+            font-size: 1.25rem;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+        
+        .chart {
+            height: 300px;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            padding: 20px 10px;
+            border-bottom: 2px solid #eee;
+            border-left: 2px solid #eee;
+        }
+        
+        .bar-group {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            width: 100%;
+        }
+        
+        .bar-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 30%;
+        }
+        
+        .bar {
+            width: 40px;
+            background-color: var(--primary-color);
+            border-radius: 5px 5px 0 0;
+            margin: 0 5px;
+            transition: height 0.5s ease;
+        }
+        
+        .bar-label {
+            margin-top: 10px;
+            text-align: center;
+            color: var(--text-dark);
+        }
+        
+        .legend {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 0 10px;
+        }
+        
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        
+        .legend-text {
+            font-size: 0.85rem;
+        }
+        
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .book-card {
+            background-color: white;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        
+        .book-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .book-cover {
+            height: 200px;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .book-title {
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .dashboard-title {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+        }
+        
+        .add-book-btn {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .add-book-btn:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .search-container {
+            position: relative;
+            width: 300px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+            font-size: 0.9rem;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+        }
+        
+        .category-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .category-btn {
+            background-color: transparent;
+            color: var(--text-light);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: var(--box-shadow);
+            z-index: 1;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .dropdown-content a {
+            color: var(--text-dark);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .category-dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        .logout-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logout-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 5px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        
+        .logout-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+        
+        .logout-message {
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .logout-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .cancel-btn {
+            background-color: #eee;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+        
+        .confirm-logout-btn {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .confirm-logout-btn:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 60px;
+                overflow: hidden;
+            }
+            
+            .logo-text, .nav-item span, #adminRole {
+                display: none;
+            }
+            
+            .main-content {
+                margin-left: 60px;
+                width: calc(100% - 60px);
+            }
+            
+            .dashboard-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo-container">
+            <div class="logo">
+                <img src="logo.png" alt="LBR Logo">
+            </div>
+            <div class="logo-text">LBR-SYSTEM</div>
+        </div>
+        
+        <a href="#" class="nav-item active" id="dashboardLink">
+            <div class="nav-icon">🏠</div>
+            <span>DASHBOARD</span>
+        </a>
+        
+        <a href="#" class="nav-item" id="usersLink">
+            <div class="nav-icon">👥</div>
+            <span>USERS</span>
+        </a>
+        
+        <a href="#" class="nav-item" id="booksRequestedLink">
+            <div class="nav-icon">📚</div>
+            <span>BOOKS REQUESTED</span>
+        </a>
+        
+        <a href="#" class="nav-item" id="settingsLink">
+            <div class="nav-icon">⚙️</div>
+            <span>SETTINGS</span>
+        </a>
+        
+        <a href="#" class="nav-item" id="logoutLink">
+            <div class="nav-icon">↪️</div>
+            <span>LOG OUT</span>
+        </a>
+        
+        <div class="admin-profile">
+            <div class="profile-pic">
+                <img src="/api/placeholder/40/40" alt="Admin Avatar">
+            </div>
+            <div id="adminRole">Admin</div>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <div class="header">
+            <h1>Library - Admin</h1>
+            <div class="search-container">
+                <div class="search-icon">🔍</div>
+                <input type="text" class="search-input" placeholder="Search & Browse Books">
+            </div>
+            <div class="notification-icon">🔔</div>
+            <div class="category-dropdown">
+                <button class="category-btn">Category ≡</button>
+                <div class="dropdown-content">
+                    <a href="#">Educational</a>
+                    <a href="#">Entertainment</a>
+                </div>
+            </div>
+        </div>
+        
+        <h2 class="dashboard-title">Admin Dashboard</h2>
+        
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-value">0</div>
+                <div class="stat-label">Number of Users</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">📚</div>
+                <div class="stat-value">0</div>
+                <div class="stat-label">Number of Books</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">📋</div>
+                <div class="stat-value">0</div>
+                <div class="stat-label">Number of Requested books</div>
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <h3 class="chart-title">Library Statistics</h3>
+            <div class="chart">
+                <div class="bar-group">
+                    <div class="bar-container">
+                        <div class="bar" style="height: 60px;"></div>
+                        <div class="bar" style="height: 20px; background-color: #C75B39;"></div>
+                        <div class="bar" style="height: 180px; background-color: #3A3982;"></div>
+                        <div class="bar-label">Item 1</div>
+                    </div>
+                    
+                    <div class="bar-container">
+                        <div class="bar" style="height: 100px;"></div>
+                        <div class="bar" style="height: 150px; background-color: #C75B39;"></div>
+                        <div class="bar" style="height: 100px; background-color: #3A3982;"></div>
+                        <div class="bar-label">Item 2</div>
+                    </div>
+                    
+                    <div class="bar-container">
+                        <div class="bar" style="height: 120px;"></div>
+                        <div class="bar" style="height: 90px; background-color: #C75B39;"></div>
+                        <div class="bar" style="height: 220px; background-color: #3A3982;"></div>
+                        <div class="bar-label">Item 3</div>
+                    </div>
+                </div>
+            </div>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #8B0000;"></div>
+                    <div class="legend-text">Number of Users</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #C75B39;"></div>
+                    <div class="legend-text">Number of Books</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #3A3982;"></div>
+                    <div class="legend-text">Number of Requested books</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="dashboard-header">
+            <h3 class="dashboard-title">Library Collection</h3>
+            <button class="add-book-btn">+Add Book</button>
+        </div>
+        
+        <div class="books-grid">
+            <!-- Book 1 -->
+            <div class="book-card">
+                <div class="book-cover" data-book-code="MATH001">
+                    <img src="/api/placeholder/150/200" alt="Book 1">
+                </div>
+                <p class="book-title">Mathematics 1</p>
+            </div>
+            
+            <!-- Book 2 -->
+            <div class="book-card">
+                <div class="book-cover" data-book-code="SCI002">
+                    <img src="/api/placeholder/150/200" alt="Book 2">
+                </div>
+                <p class="book-title">Science and Technology</p>
+            </div>
+            
+            <!-- Book 3 -->
+            <div class="book-card">
+                <div class="book-cover" data-book-code="ENG003">
+                    <img src="/api/placeholder/150/200" alt="Book 3">
+                </div>
+                <p class="book-title">English for Everyone</p>
+            </div>
+            
+            <!-- Book 4 -->
+            <div class="book-card">
+                <div class="book-cover" data-book-code="FIL004">
+                    <img src="/api/placeholder/150/200" alt="Book 4">
+                </div>
+                <p class="book-title">Filipino: Wika at Kultura</p>
+            </div>
+            
+            <!-- Book 5 -->
+            <div class="book-card">
+                <div class="book-cover" data-book-code="SOC005">
+                    <img src="/api/placeholder/150/200" alt="Book 5">
+                </div>
+                <p class="book-title">Social Studies</p>
+            </div>
+            
+            <!-- Book 6 -->
+            <div class="book-card">
+                <div class="book-cover" data-book-code="COMP006">
+                    <img src="/api/placeholder/150/200" alt="Book 6">
+                </div>
+                <p class="book-title">Computer Education</p>
+            </div>
+        </div>
+    </div>
+    <!-- Users Page -->
+    <div class="users-page" id="usersPage" style="display: none;">
+        <div class="dashboard-header">
+            <h2 class="dashboard-title">Users</h2>
+        </div>
+        
+        <div class="table-container">
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="userTableBody">
+                    <tr>
+                        <td>1</td>
+                        <td>johndoe</td>
+                        <td>john@example.com</td>
+                        <td>Admin</td>
+                        <td><span class="status active">Active</span></td>
+                        <td><button class="action-btn">View</button></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>janedoe</td>
+                        <td>jane@example.com</td>
+                        <td>User</td>
+                        <td><span class="status inactive">Inactive</span></td>
+                        <td><button class="action-btn">View</button></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>mikebrown</td>
+                        <td>mike@example.com</td>
+                        <td>User</td>
+                        <td><span class="status active">Active</span></td>
+                        <td><button class="action-btn">View</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Logout Modal -->
+    <div class="logout-modal" id="logoutModal">
+        <div class="logout-content">
+            <h2 class="logout-title">Log Out</h2>
+            <p class="logout-message">Are you sure you want to log out of your account?</p>
+            <div class="logout-buttons">
+                <button class="cancel-btn" id="cancelLogout">Cancel</button>
+                <button class="confirm-logout-btn" id="confirmLogout">Log Out</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get logout modal elements
+            const logoutModal = document.getElementById('logoutModal');
+            const cancelLogout = document.getElementById('cancelLogout');
+            const confirmLogout = document.getElementById('confirmLogout');
+            const logoutLink = document.getElementById('logoutLink');
+            
+            // Navigation links
+            const dashboardLink = document.getElementById('dashboardLink');
+            const usersLink = document.getElementById('usersLink');
+            const booksRequestedLink = document.getElementById('booksRequestedLink');
+            const settingsLink = document.getElementById('settingsLink');
+            
+            // Function to update active link
+            function updateActiveLink(activeLink) {
+                // Remove active class from all nav items
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                // Add active class to clicked link
+                activeLink.classList.add('active');
+            }
+            
+            // Add click events for navigation
+            dashboardLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                updateActiveLink(dashboardLink);
+            });
+            
+            usersLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                updateActiveLink(usersLink);
+                // Redirect or show users page
+                
+            });
+            
+            booksRequestedLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                updateActiveLink(booksRequestedLink);
+                // Redirect or show books requested page
+                
+            });
+            
+            settingsLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                updateActiveLink(settingsLink);
+                // Redirect or show settings page
+               
+            });
+            
+            // Logout button click
+            logoutLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                logoutModal.style.display = 'flex';
+            });
+            
+            // Cancel logout
+            cancelLogout.addEventListener('click', function() {
+                logoutModal.style.display = 'none';
+            });
+            
+            // Confirm logout
+            confirmLogout.addEventListener('click', function() {
+                // Here you would typically redirect to login page
+                alert('Logging out...');
+                window.location.href = 'home.html'; // Redirect to login page
+            });
+            
+            // Close modal if clicked outside of content
+            logoutModal.addEventListener('click', function(e) {
+                if (e.target === logoutModal) {
+                    logoutModal.style.display = 'none';
+                }
+            });
+            
+            // Book card click event
+            const bookCards = document.querySelectorAll('.book-card');
+            bookCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const bookCode = this.querySelector('.book-cover').getAttribute('data-book-code');
+                    const bookTitle = this.querySelector('.book-title').textContent;
+                    alert(`Book selected: ${bookTitle} (${bookCode})\nThis would open book details page.`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
